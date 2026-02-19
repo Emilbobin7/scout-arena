@@ -32,6 +32,8 @@ services:
     buildCommand: npm install && npm run build
     publishDir: dist
     envVars:
+      - key: NODE_VERSION
+        value: 20.11.0
       - key: VITE_API_URL
         fromService:
           name: scout-arena-backend
