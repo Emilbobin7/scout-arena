@@ -3,8 +3,9 @@ import { io } from "socket.io-client";
 import axios from "axios";
 import { Send, Search, MessageSquare, Circle } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
+import { SOCKET_URL } from "../../config";
 
-const socket = io("http://localhost:5000", { autoConnect: false });
+const socket = io(SOCKET_URL, { autoConnect: false });
 
 export default function Messages() {
     const [conversations, setConversations] = useState([]);
@@ -269,8 +270,8 @@ export default function Messages() {
                                     <div key={msg._id || i} className={`flex ${isOwn ? "justify-end" : "justify-start"}`}>
                                         <div className="max-w-xs lg:max-w-md">
                                             <div className={`px-4 py-2.5 rounded-2xl text-sm leading-relaxed ${isOwn
-                                                    ? "bg-blue-600 text-white rounded-br-sm"
-                                                    : "bg-white/10 text-gray-100 rounded-bl-sm"
+                                                ? "bg-blue-600 text-white rounded-br-sm"
+                                                : "bg-white/10 text-gray-100 rounded-bl-sm"
                                                 }`}>
                                                 {msg.text}
                                             </div>

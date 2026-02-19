@@ -23,7 +23,7 @@ const Achievements = ({ achievements, onAchievementChange }) => {
                 },
             };
 
-            await axios.post('http://localhost:5000/api/dashboard/achievement', newAchievement, config);
+            await axios.post('/api/dashboard/achievement', newAchievement, config);
             setIsAdding(false);
             setNewAchievement({ title: '', year: new Date().getFullYear().toString(), description: '' });
             if (onAchievementChange) onAchievementChange();

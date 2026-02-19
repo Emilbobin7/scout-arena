@@ -1,6 +1,7 @@
 import { Play, Trash2, Plus, Upload, Loader } from 'lucide-react';
 import { useState } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../config';
 
 const VideoGallery = ({ videos, onVideoChange }) => {
     const [isUploading, setIsUploading] = useState(false);
@@ -29,7 +30,9 @@ const VideoGallery = ({ videos, onVideoChange }) => {
                 }
             };
 
-            await axios.post('http://localhost:5000/api/videos', formData, config);
+            // Use absolute URL from config or relative (which uses base URL)
+            // But for consistency we can use axios post to '/api/videos' since baseURL is set
+            await axios.post('/api/videos', formData, config);
 
             setIsUploading(false);
             setUploadFile(null);
@@ -51,7 +54,7 @@ const VideoGallery = ({ videos, onVideoChange }) => {
             const config = {
                 headers: { Authorization: `Bearer ${userInfo.token}` }
             };
-            await axios.delete(`http://localhost:5000/api/videos/${id}`, config);
+            await axios.delete(`/api/videos/${id}`, config);
             if (onVideoChange) onVideoChange();
         } catch (error) {
             console.error("Error deleting video:", error);
@@ -81,7 +84,7 @@ const VideoGallery = ({ videos, onVideoChange }) => {
                     videos.map((video) => (
                         <div key={video._id} className="group relative bg-slate-800 rounded-lg overflow-hidden border border-white/5 hover:border-blue-500/50 transition-all">
                             <div className="aspect-video relative bg-black">
-                                <video src={`http://localhost:5000${video.videoUrl}`} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                                <video src={`${API_URL}${video.videoUrl}`} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                     <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:bg-blue-600 group-hover:scale-110 transition-all">
                                         <Play className="w-4 h-4 text-white fill-white" />

@@ -45,7 +45,7 @@ const ProfileSummary = ({ profile }) => {
                 },
             };
 
-            const { data } = await axios.put('http://localhost:5000/api/dashboard/profile', formData, config);
+            const { data } = await axios.put('/api/dashboard/profile', formData, config);
             // Optionally update local state or trigger refresh if needed, but for now just exit edit mode
             //Ideally we should callback to parent to refresh, but local update is fine for UI speed
             setIsEditing(false);
