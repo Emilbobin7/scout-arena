@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Home from './pages/Home';
+import Features from './pages/Features';
+import Explore from './pages/Explore';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import DashboardLayout from './components/DashboardLayout';
@@ -43,7 +46,9 @@ function App() {
       <AuthProvider>
         <Layout>
           <Routes>
-            <Route path="/" element={<Hero />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/explore" element={<Explore />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Signup />} />
             <Route path="/signup" element={<Signup />} />

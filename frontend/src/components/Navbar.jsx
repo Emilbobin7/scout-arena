@@ -18,7 +18,7 @@ const Navbar = () => {
 
     const navLinks = [
         { name: 'Home', path: '/' },
-        { name: 'Features', path: '#features' }, // updated to anchor for landing page
+        { name: 'Features', path: '/features' },
         { name: 'Explore', path: '/explore' },
     ];
 

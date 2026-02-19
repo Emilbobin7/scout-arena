@@ -5,6 +5,7 @@ import AthleteShowcase from '../components/AthleteShowcase';
 import AnalyticsFeature from '../components/AnalyticsFeature';
 import Testimonials from '../components/Testimonials';
 import DemoPreview from '../components/DemoPreview';
+import FinalCTA from '../components/FinalCTA';
 import Footer from '../components/Footer';
 
 const Home = () => {
@@ -17,7 +18,7 @@ const Home = () => {
             <AnalyticsFeature />
             <DemoPreview />
             <Testimonials />
-            {/* CTA Section removed as its functionality is covered in Hero/Footer/HowItWorks */}
+            <FinalCTA />
             <Footer />
         </div>
     );

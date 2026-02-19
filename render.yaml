@@ -1,0 +1,46 @@
+services:
+  # 1. Backend (Node.js)
+  - type: web
+    name: scout-arena-backend
+    env: node
+    rootDir: server
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: MONGO_URI
+        sync: false # Set this in Render Dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: AI_SERVICE_URL
+        fromService:
+          name: scout-arena-ai
+          type: web
+          property: host
+
+  # 2. AI Service (Python)
+  - type: web
+    name: scout-arena-ai
+    env: python
+    rootDir: ai-service
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+
+  # 3. Frontend (React/Static)
+  - type: web
+    name: scout-arena-frontend
+    env: static
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    publishDir: dist
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          name: scout-arena-backend
+          type: web
+          property: host
+        suffix: /api
+      - key: VITE_SOCKET_URL
+        fromService:
+          name: scout-arena-backend
+          type: web
+          property: host

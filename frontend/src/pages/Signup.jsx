@@ -1,18 +1,28 @@
-import { useState, useContext } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useState, useContext, useEffect } from 'react';
+import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { User, Mail, Lock, Activity, Briefcase, ArrowRight } from 'lucide-react';
 
 const Signup = () => {
+    const [searchParams] = useSearchParams();
+    const roleParam = searchParams.get('role');
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
         password: '',
         confirmPassword: '',
-        role: 'athlete',
+        role: roleParam === 'scout' ? 'scout' : 'athlete',
         sport: '',
         position: '',
     });
+
+    useEffect(() => {
+        if (roleParam && (roleParam === 'athlete' || roleParam === 'scout')) {
+            setFormData(prev => ({ ...prev, role: roleParam }));
+        }
+    }, [roleParam]);
+
     const [error, setError] = useState('');
 
     const { register } = useContext(AuthContext);

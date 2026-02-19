@@ -30,7 +30,7 @@ const steps = [
 
 const HowItWorks = () => {
     return (
-        <section className="py-24 bg-slate-900 relative">
+        <section id="how-it-works" className="py-24 bg-slate-900 relative">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-20">
                     <h2 className="text-4xl md:text-5xl font-black text-white mb-6">THE PATH TO <span className="text-blue-500">GLORY</span></h2>
@@ -39,14 +39,20 @@ const HowItWorks = () => {
 
                 <div className="relative">
                     {/* Connecting Line (Desktop) */}
-                    <div className="hidden lg:block absolute top-[60%] left-0 w-full h-1 bg-white/5 -translate-y-1/2 rounded-full">
+                    <div className="hidden lg:block absolute top-12 left-0 w-full h-1 bg-white/5 -translate-y-1/2 rounded-full overflow-hidden">
                         <motion.div
                             initial={{ width: "0%" }}
                             whileInView={{ width: "100%" }}
                             viewport={{ once: true }}
                             transition={{ duration: 1.5, ease: "easeInOut" }}
                             className="h-full bg-gradient-to-r from-blue-600 via-purple-600 to-green-600 rounded-full"
-                        ></motion.div>
+                        >
+                            <motion.div
+                                className="w-full h-full bg-white/30"
+                                animate={{ x: ["-100%", "100%"] }}
+                                transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+                            />
+                        </motion.div>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 relative z-10">
@@ -59,16 +65,21 @@ const HowItWorks = () => {
                                 transition={{ delay: index * 0.2, duration: 0.6 }}
                                 className="flex flex-col items-center text-center group"
                             >
-                                <div className={`w-24 h-24 rounded-3xl ${step.color} bg-opacity-20 flex items-center justify-center mb-8 relative`}>
+                                <motion.div
+                                    className={`w-24 h-24 rounded-3xl ${step.color} bg-opacity-20 flex items-center justify-center mb-8 relative`}
+                                    animate={{ y: [0, -10, 0] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: "easeInOut", delay: index * 0.5 }}
+                                    whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+                                >
                                     <div className={`absolute inset-0 ${step.color} opacity-20 blur-xl rounded-3xl group-hover:opacity-40 transition-opacity`}></div>
-                                    <div className={`relative z-10 w-16 h-16 rounded-2xl ${step.color} shadow-lg ${step.glow} flex items-center justify-center text-white transform group-hover:scale-110 transition-transform duration-300`}>
+                                    <div className={`relative z-10 w-16 h-16 rounded-2xl ${step.color} shadow-lg ${step.glow} flex items-center justify-center text-white`}>
                                         {step.icon}
                                     </div>
                                     {/* Number Badge */}
-                                    <div className="absolute -top-4 -right-4 w-10 h-10 rounded-full bg-slate-800 border-4 border-slate-900 flex items-center justify-center text-white font-black text-lg shadow-xl">
+                                    <div className="absolute -top-4 -right-4 w-10 h-10 rounded-full bg-slate-800 border-4 border-slate-900 flex items-center justify-center text-white font-black text-lg shadow-xl group-hover:scale-110 transition-transform">
                                         {step.id}
                                     </div>
-                                </div>
+                                </motion.div>
 
                                 <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-blue-400 transition-colors">{step.title}</h3>
                                 <p className="text-gray-400 leading-relaxed px-4">{step.description}</p>

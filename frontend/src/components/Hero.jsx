@@ -1,150 +1,163 @@
-import { useRef } from 'react';
-import { ArrowRight, Play, Trophy, Activity, Zap } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Play, Users, Trophy, Zap, Star, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
-const Hero = () => {
-    const containerRef = useRef(null);
-    const { scrollY } = useScroll();
-    const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-    const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+const ROLES = [
+    {
+        id: 'athlete',
+        label: '🏃 I\'m an Athlete',
+        subtitle: 'Upload videos · Get AI scores · Get discovered',
+        cta: 'Create Athlete Profile',
+        ctaLink: '/signup',
+        color: 'from-blue-600 to-blue-700',
+        glow: 'shadow-blue-500/40',
+        border: 'border-blue-500/50',
+    },
+    {
+        id: 'scout',
+        label: '🎯 I\'m a Scout',
+        subtitle: 'Search talent · View AI reports · Recruit smarter',
+        cta: 'Start Scouting',
+        ctaLink: '/signup',
+        color: 'from-purple-600 to-purple-700',
+        glow: 'shadow-purple-500/40',
+        border: 'border-purple-500/50',
+    },
+];
 
+const STATS = [
+    { value: '50k+', label: 'Athletes' },
+    { value: '1.2k+', label: 'Scouts' },
+    { value: '98%', label: 'Match Accuracy' },
+    { value: '120+', label: 'Clubs' },
+];
+
+export default function Hero() {
     return (
-        <div ref={containerRef} className="relative overflow-hidden min-h-screen flex items-center bg-slate-950 pt-20">
-            {/* Background Image - Stadium Night */}
-            <div className="absolute inset-0 z-0">
+        <div className="relative min-h-screen flex flex-col items-center justify-center bg-slate-950 pt-20 pb-16 overflow-hidden">
+            {/* Background */}
+            <div className="absolute inset-0 z-0 pointer-events-none">
                 <div
-                    className="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-screen"
-                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=2069&auto=format&fit=crop')" }}
-                ></div>
-                {/* Dark Overlay Gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/80 to-blue-900/30"></div>
-
-                {/* Animated Spotlights */}
-                <div className="absolute top-0 left-1/4 w-32 h-[100vh] bg-blue-500/10 blur-[80px] rotate-12 origin-top animate-pulse"></div>
-                <div className="absolute top-0 right-1/4 w-32 h-[100vh] bg-blue-500/10 blur-[80px] -rotate-12 origin-top animate-pulse animation-delay-2000"></div>
+                    className="absolute inset-0 bg-cover bg-center opacity-20"
+                    style={{ backgroundImage: "url('https://images.unsplash.com/photo-1522778119026-d647f0565c6a?q=80&w=2069&auto=format&fit=crop')" }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/80 to-slate-950" />
+                {/* Spotlight beams */}
+                <div className="absolute top-0 left-1/4 w-24 h-screen bg-blue-500/8 blur-[60px] rotate-12 origin-top" />
+                <div className="absolute top-0 right-1/4 w-24 h-screen bg-purple-500/8 blur-[60px] -rotate-12 origin-top" />
+                {/* Dot grid */}
+                <div className="absolute inset-0 opacity-[0.03]"
+                    style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '32px 32px' }}
+                />
             </div>
 
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                {/* Text Content */}
+            <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 text-center">
+                {/* Live badge */}
                 <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }}
+                    className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-green-500/30 bg-green-900/20 backdrop-blur-sm"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-blue-500/30 bg-blue-900/20 backdrop-blur-md">
-                        <span className="relative flex h-3 w-3">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                        </span>
-                        <span className="text-blue-200 text-sm font-bold tracking-wide uppercase">AI-Powered Scouting v2.0</span>
-                    </div>
+                    <span className="relative flex h-2.5 w-2.5">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500" />
+                    </span>
+                    <span className="text-green-300 text-sm font-semibold">AI-Powered Scouting · Live Platform</span>
+                </motion.div>
 
-                    <h1 className="text-6xl lg:text-8xl font-black text-white mb-6 tracking-tighter leading-[0.9]">
-                        UNLEASH<br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-green-400 animate-gradient-x">YOUR</span><br />
-                        POTENTIAL
-                    </h1>
+                {/* Headline */}
+                <motion.h1
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }}
+                    className="text-5xl sm:text-6xl md:text-7xl font-black text-white mb-5 tracking-tight leading-[1.05]"
+                >
+                    Where{' '}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Athletes</span>
+                    {' '}Meet{' '}
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Opportunity</span>
+                </motion.h1>
 
-                    <p className="text-xl text-gray-400 max-w-lg mb-10 leading-relaxed font-light">
-                        The world's first AI-driven platform connecting elite talent with professional scouts.
-                        Data-backed discovery for the next generation of legends.
-                    </p>
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+                    className="text-lg sm:text-xl text-gray-400 max-w-2xl mx-auto mb-10 leading-relaxed"
+                >
+                    Upload performance videos → AI generates your scores → Scouts discover you.
+                    The smartest way to get recruited.
+                </motion.p>
 
-                    <div className="flex flex-col sm:flex-row gap-5">
-                        <Link
-                            to="/signup"
-                            className="px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-lg transition-all shadow-[0_0_40px_rgba(37,99,235,0.4)] hover:shadow-[0_0_60px_rgba(37,99,235,0.6)] hover:-translate-y-1 flex items-center justify-center gap-2 group ring-1 ring-white/20"
-                        >
-                            Join Now <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                        </Link>
-                        <button
-                            onClick={() => document.getElementById('demo-section').scrollIntoView({ behavior: 'smooth' })}
-                            className="px-8 py-4 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/30 text-white font-semibold text-lg transition-all backdrop-blur-md flex items-center justify-center gap-2 group"
-                        >
-                            <div className="w-8 h-8 rounded-full bg-white text-slate-900 flex items-center justify-center group-hover:scale-110 transition-transform">
-                                <Play className="w-4 h-4 fill-current ml-0.5" />
-                            </div>
-                            Watch Demo
-                        </button>
-                    </div>
-
-                    <div className="mt-12 flex items-center gap-8 border-t border-white/10 pt-8">
-                        <div>
-                            <p className="text-3xl font-bold text-white">50k+</p>
-                            <p className="text-gray-500 text-sm uppercase tracking-wider">Athletes</p>
-                        </div>
-                        <div>
-                            <p className="text-3xl font-bold text-white">1.2k+</p>
-                            <p className="text-gray-500 text-sm uppercase tracking-wider">Scouts</p>
-                        </div>
-                        <div>
-                            <p className="text-3xl font-bold text-white">98%</p>
-                            <p className="text-gray-500 text-sm uppercase tracking-wider">Accuracy</p>
-                        </div>
+                {/* Role Selector */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }}
+                    className="mb-8"
+                >
+                    <p className="text-gray-500 text-sm uppercase tracking-widest mb-5 font-medium">Who are you?</p>
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-xl mx-auto">
+                        {ROLES.map(role => (
+                            <Link
+                                key={role.id}
+                                to={`/signup?role=${role.id}`}
+                                className={`flex-1 p-5 rounded-2xl border-2 text-left transition-all duration-200 group border-white/10 bg-white/3 hover:border-white/25 hover:bg-white/6 hover:-translate-y-1 hover:shadow-lg`}
+                            >
+                                <p className="text-white font-bold text-base mb-1">{role.label}</p>
+                                <p className="text-gray-400 text-xs">{role.subtitle}</p>
+                            </Link>
+                        ))}
                     </div>
                 </motion.div>
 
-                {/* Floating Visuals / 3D Elements */}
-                <div className="relative hidden lg:block h-[600px] perspective-1000">
-                    {/* Main Athlete Card */}
-                    <motion.div
-                        style={{ y: y1 }}
-                        className="absolute right-10 top-10 w-80 h-96 bg-slate-900/80 backdrop-blur-xl border border-white/10 rounded-3xl p-4 shadow-2xl rotate-y-12 rotate-z-6 z-20"
+                {/* CTA Buttons */}
+                <motion.div
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                    className="flex flex-col sm:flex-row gap-3 justify-center"
+                >
+                    <Link
+                        to="/signup"
+                        className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-base transition-all shadow-lg shadow-blue-500/30 hover:-translate-y-0.5 group"
                     >
-                        <div className="w-full h-full rounded-2xl overflow-hidden relative">
-                            <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=2069&auto=format&fit=crop" className="w-full h-full object-cover opacity-80" alt="Athlete" />
-                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 to-transparent"></div>
-                            <div className="absolute bottom-4 left-4">
-                                <p className="text-white font-bold text-lg">Vikram Das</p>
-                                <p className="text-blue-400 text-sm">CDM • 89 OVR</p>
-                            </div>
-                            <div className="absolute top-4 right-4 bg-green-500 text-slate-900 text-xs font-bold px-2 py-1 rounded">MATCH 98%</div>
-                        </div>
-                    </motion.div>
-
-                    {/* Stats Card Floating */}
-                    <motion.div
-                        style={{ y: y2 }}
-                        className="absolute left-0 bottom-20 w-72 bg-slate-800/90 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-[0_0_50px_rgba(0,0,0,0.5)] z-30"
+                        Get Started Free <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    </Link>
+                    <button
+                        onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 text-white font-semibold text-base transition-all"
                     >
-                        <div className="flex items-center gap-3 mb-4">
-                            <div className="p-2 bg-blue-600/20 rounded-lg text-blue-400">
-                                <Activity className="w-6 h-6" />
-                            </div>
-                            <div>
-                                <p className="text-gray-400 text-xs uppercase">Performance</p>
-                                <p className="text-white font-bold">Excellent</p>
-                            </div>
-                        </div>
-                        <div className="space-y-3">
-                            <div>
-                                <div className="flex justify-between text-xs text-gray-400 mb-1">
-                                    <span>Speed</span>
-                                    <span>94</span>
-                                </div>
-                                <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                                    <div className="h-full bg-blue-500 w-[94%]"></div>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="flex justify-between text-xs text-gray-400 mb-1">
-                                    <span>Agility</span>
-                                    <span>88</span>
-                                </div>
-                                <div className="w-full h-1.5 bg-white/10 rounded-full overflow-hidden">
-                                    <div className="h-full bg-green-500 w-[88%]"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
+                        <Play size={16} className="fill-white" /> See How It Works
+                    </button>
+                </motion.div>
 
-                    {/* Decorative Elements */}
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[100px] mix-blend-screen pointer-events-none"></div>
-                </div>
+                {/* Trust line */}
+                <motion.p
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}
+                    className="mt-5 text-gray-600 text-sm"
+                >
+                    Free to join · No credit card required · 2 min setup
+                </motion.p>
+
+                {/* Stats Bar */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}
+                    className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-6 border-t border-white/8 pt-10"
+                >
+                    {STATS.map(s => (
+                        <div key={s.label}>
+                            <p className="text-3xl font-black text-white">{s.value}</p>
+                            <p className="text-gray-500 text-xs uppercase tracking-wider mt-1">{s.label}</p>
+                        </div>
+                    ))}
+                </motion.div>
+
+                {/* Scroll hint */}
+                <motion.div
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}
+                    className="mt-12 flex justify-center"
+                >
+                    <button
+                        onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
+                        className="flex flex-col items-center gap-1 text-gray-600 hover:text-gray-400 transition-colors"
+                    >
+                        <span className="text-xs uppercase tracking-widest">Scroll to explore</span>
+                        <ChevronDown size={18} className="animate-bounce" />
+                    </button>
+                </motion.div>
             </div>
         </div>
     );
-};
-
-export default Hero;
+}

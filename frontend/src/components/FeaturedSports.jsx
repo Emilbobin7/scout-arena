@@ -1,41 +1,41 @@
-import { ArrowRight, Activity, Target, Shield, Zap } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { FaFutbol, FaBasketballBall } from 'react-icons/fa';
+import { MdSportsCricket, MdSportsTennis } from 'react-icons/md';
 
 const sports = [
     {
         id: 1,
         name: 'Football',
-        image: 'https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=2070&auto=format&fit=crop',
-        icon: <Activity className="w-6 h-6" />,
+        image: 'https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?auto=format&fit=crop&w=1000&q=80',
+        icon: <FaFutbol className="w-6 h-6" />,
         color: 'from-blue-500 to-cyan-500',
         stats: '2.5k+ Scouts'
     },
     {
         id: 2,
         name: 'Cricket',
-        image: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?q=80&w=2067&auto=format&fit=crop',
-        icon: <Target className="w-6 h-6" />,
+        image: 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=1000&q=80',
+        icon: <MdSportsCricket className="w-6 h-6" />,
         color: 'from-emerald-500 to-green-500',
         stats: '1.8k+ Scouts'
     },
     {
         id: 3,
         name: 'Basketball',
-        image: 'https://images.unsplash.com/photo-1546519638-68e109498ee2?q=80&w=2070&auto=format&fit=crop',
-        icon: <Zap className="w-6 h-6" />,
+        image: 'https://images.unsplash.com/photo-1518063319789-7217e6706b04?auto=format&fit=crop&w=1000&q=80',
+        icon: <FaBasketballBall className="w-6 h-6" />,
         color: 'from-orange-500 to-amber-500',
         stats: '1.2k+ Scouts'
     },
     {
         id: 4,
         name: 'Tennis',
-        image: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?q=80&w=2070&auto=format&fit=crop',
-        icon: <Trophy className="w-6 h-6" />, // Need to import Trophy
+        image: 'https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?auto=format&fit=crop&w=1000&q=80',
+        icon: <MdSportsTennis className="w-6 h-6" />,
         color: 'from-purple-500 to-pink-500',
         stats: '900+ Scouts'
     }
 ];
-
-import { Trophy } from 'lucide-react'; // Added import
 
 const FeaturedSports = () => {
     return (

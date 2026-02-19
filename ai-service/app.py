@@ -47,6 +47,9 @@ def analyze():
         }
     })
 
+import os
+
 if __name__ == "__main__":
-    print("Scout Arena AI Service running on port 8000")
-    app.run(port=8000, debug=False)
+    port = int(os.environ.get("PORT", 8000))
+    print(f"Scout Arena AI Service running on port {port}")
+    app.run(host="0.0.0.0", port=port, debug=False)
