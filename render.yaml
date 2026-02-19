@@ -26,9 +26,8 @@ services:
     startCommand: gunicorn app:app
 
   # 3. Frontend (React/Static)
-  - type: web
+  - type: static
     name: scout-arena-frontend
-    env: static
     rootDir: frontend
     buildCommand: npm install && npm run build
     publishDir: dist
