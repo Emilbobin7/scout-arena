@@ -1,5 +1,13 @@
 services:
-  # 1. Backend (Node.js)
+  # 1. AI Service (Python) - Defined first because Backend depends on it
+  - type: web
+    name: scout-arena-ai
+    env: python
+    rootDir: ai-service
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+
+  # 2. Backend (Node.js)
   - type: web
     name: scout-arena-backend
     env: node
@@ -17,14 +25,6 @@ services:
           type: web
           property: host
 
-  # 2. AI Service (Python)
-  - type: web
-    name: scout-arena-ai
-    env: python
-    rootDir: ai-service
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
-
   # 3. Frontend (React/Static)
   - type: static
     name: scout-arena-frontend
@@ -36,10 +36,10 @@ services:
         fromService:
           name: scout-arena-backend
           type: web
-          property: host
+          property: url
         suffix: /api
       - key: VITE_SOCKET_URL
         fromService:
           name: scout-arena-backend
           type: web
-          property: host
+          property: url
