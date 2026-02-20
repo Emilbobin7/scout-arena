@@ -44,10 +44,10 @@ services:
         fromService:
           name: scout-arena-backend
           type: web
-          property: host
+          property: url
         suffix: /api
       - key: VITE_SOCKET_URL
         fromService:
           name: scout-arena-backend
           type: web
-          property: host
+          property: url
