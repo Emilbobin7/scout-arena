@@ -55,11 +55,11 @@ const Footer = () => {
                         <ul className="space-y-4">
                             <li className="flex items-start gap-3 text-gray-400">
                                 <MapPin className="w-5 h-5 text-blue-500 flex-shrink-0 mt-1" />
-                                <span>123 Sports Tech Avenue,<br />Innovation District, NY 10001</span>
+                                <span>Kollanoor House,<br />Kakkanad, Kerala<br /> 682030</span>
                             </li>
                             <li className="flex items-center gap-3 text-gray-400">
                                 <Phone className="w-5 h-5 text-blue-500 flex-shrink-0" />
-                                <span>+1 (555) 123-4567</span>
+                                <span>+91 7907273674</span>
                             </li>
                             <li className="flex items-center gap-3 text-gray-400">
                                 <Mail className="w-5 h-5 text-blue-500 flex-shrink-0" />
@@ -70,7 +70,7 @@ const Footer = () => {
                 </div>
 
                 <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-gray-500 text-sm">© 2024 Scout Arena. All rights reserved.</p>
+                    <p className="text-gray-500 text-sm">© 2026 Scout Arena. All rights reserved.</p>
                     <p className="text-gray-600 text-sm flex items-center gap-1">
                         Designed for <span className="text-blue-500 font-bold">Greatness</span>
                     </p>
