@@ -43,7 +43,10 @@ If you prefer to create them one by one:
 - **Root Directory**: `frontend`
 - **Build Command**: `npm install && npm run build`
 - **Publish Directory**: `dist`
-- **Env Vars**: Add `VITE_API_URL` pointing to your Backend URL.
+- **Publish Directory**: `dist`
+- **Env Vars**: 
+  - `VITE_API_URL`: Your Backend URL
+  - `NODE_VERSION`: `20.11.0` (Required for building with Tailwind v4)
 
 ## Summary of Services
 - **Backend**: Handles API and Sockets.

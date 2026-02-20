@@ -24,6 +24,12 @@ services:
           name: scout-arena-ai
           type: web
           property: host
+      - key: CLIENT_URL
+        fromService:
+          name: scout-arena-frontend
+          type: static
+          property: url  # Use full URL with https://
+
 
   # 3. Frontend (React/Static)
   - type: static
