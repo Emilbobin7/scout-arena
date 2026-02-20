@@ -1,28 +1,40 @@
 services:
+  # ======================
   # Backend Service
+  # ======================
   - type: web
     name: scout-arena-backend
     env: node
     plan: free
     buildCommand: cd server && npm install
     startCommand: cd server && npm start
+
     envVars:
       - key: MONGO_URI
         sync: false
+
       - key: JWT_SECRET
-        sync: false
+        generateValue: true
+
       - key: NODE_VERSION
         value: 20.11.0
 
+
+  # ======================
   # Frontend Service
-  - type: static
+  # ======================
+  - type: web
     name: scout-arena-frontend
     env: static
+
     buildCommand: cd frontend && npm install && npm run build
+
     staticPublishPath: frontend/dist
+
     envVars:
       - key: VITE_API_URL
         fromService:
           type: web
           name: scout-arena-backend
-          property: url
+          property: host
+        suffix: /api
