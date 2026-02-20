@@ -32,7 +32,7 @@ services:
 
 
   # 3. Frontend (React/Static)
-  - type: static
+  - type: web
     name: scout-arena-frontend
     rootDir: frontend
     buildCommand: npm install && npm run build
