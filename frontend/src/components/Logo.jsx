@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Logo = ({ className = "w-12 h-12" }) => {
+const Logo = ({ className = "w-12 h-12", showText = true }) => {
     return (
         <div className={`relative flex flex-col items-center justify-center ${className}`}>
             <svg
@@ -9,6 +9,31 @@ const Logo = ({ className = "w-12 h-12" }) => {
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-full h-full drop-shadow-[0_0_10px_rgba(34,211,238,0.8)]"
             >
+                {/* Definitions for Glow Filters */}
+                <defs>
+                    <filter id="glow-blue" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+                        <feMerge>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    <filter id="glow-pink" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
+                        <feMerge>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                    <filter id="glow-yellow" x="-50%" y="-50%" width="200%" height="200%">
+                        <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+                        <feMerge>
+                            <feMergeNode in="coloredBlur" />
+                            <feMergeNode in="SourceGraphic" />
+                        </feMerge>
+                    </filter>
+                </defs>
+
                 {/* Stadium Structure - Neon Blue */}
                 <path
                     d="M40 120 C 40 120, 100 140, 160 120"
@@ -33,9 +58,9 @@ const Logo = ({ className = "w-12 h-12" }) => {
 
                 {/* Roof / Upper Structure - Zig Zag */}
                 <path
-                    d="M35 110 L 50 90 L 65 110 L 80 90 L 95 110 L 110 90 L 125 110 L 140 90 L 155 110 L 165 95"
+                    d="M35 110 L 55 90 L 70 110 L 85 90 L 100 110 L 115 90 L 130 110 L 145 90 L 162 110 L 165 "
                     stroke="#22d3ee"
-                    strokeWidth="3"
+                    strokeWidth="4"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     filter="url(#glow-blue)"
@@ -65,39 +90,15 @@ const Logo = ({ className = "w-12 h-12" }) => {
                 </g>
 
                 {/* Light Beams (Yellow/Cyan accents) */}
-                <line x1="80" y1="100" x2="60" y2="50" stroke="#facc15" strokeWidth="2" strokeOpacity="0.8" filter="url(#glow-yellow)" />
-                <line x1="120" y1="100" x2="140" y2="50" stroke="#facc15" strokeWidth="2" strokeOpacity="0.8" filter="url(#glow-yellow)" />
-
+                <line x1="65" y1="100" x2="60" y2="50" stroke="#facc15" strokeWidth="2" strokeOpacity="0.8" filter="url(#glow-yellow)" />
+                <line x1="135" y1="100" x2="140" y2="50" stroke="#facc15" strokeWidth="2" strokeOpacity="0.8" filter="url(#glow-yellow)" />
 
                 {/* Text */}
-                <text x="100" y="175" textAnchor="middle" fill="#22d3ee" fontSize="18" fontFamily="sans-serif" fontWeight="bold" letterSpacing="2" filter="url(#glow-blue)">
-                    SCOUT ARENA
-                </text>
-
-                {/* Definitions for Glow Filters */}
-                <defs>
-                    <filter id="glow-blue" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
-                        <feMerge>
-                            <feMergeNode in="coloredBlur" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                    <filter id="glow-pink" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="2.5" result="coloredBlur" />
-                        <feMerge>
-                            <feMergeNode in="coloredBlur" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                    <filter id="glow-yellow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-                        <feMerge>
-                            <feMergeNode in="coloredBlur" />
-                            <feMergeNode in="SourceGraphic" />
-                        </feMerge>
-                    </filter>
-                </defs>
+                {showText && (
+                    <text x="100" y="175" textAnchor="middle" fill="#22d3ee" fontSize="18" fontFamily="sans-serif" fontWeight="bold" letterSpacing="2" filter="url(#glow-blue)">
+                        SCOUT ARENA
+                    </text>
+                )}
             </svg>
         </div>
     );

@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from 'react';
 import { useNavigate, Link, useSearchParams } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import { User, Mail, Lock, Activity, Briefcase, ArrowRight } from 'lucide-react';
+import Logo from '../components/Logo';
 
 const Signup = () => {
     const [searchParams] = useSearchParams();
@@ -65,11 +66,8 @@ const Signup = () => {
             </div>
 
             <div className="relative z-10 w-full max-w-lg px-4 animate-fade-in-up">
-                <div className="text-center mb-8">
-                    <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400 tracking-tight mb-2">
-                        JOIN SCOUT ARENA
-                    </h1>
-                    <p className="text-gray-300 font-medium">Create your profile and start your legacy</p>
+                <div className="text-center mb-8 flex flex-col items-center">
+                    <Logo className="w-64 h-auto" showText={true} />
                 </div>
 
                 <div className="backdrop-blur-xl bg-slate-900/60 border border-white/10 p-8 rounded-3xl shadow-2xl relative overflow-hidden">

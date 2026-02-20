@@ -3,6 +3,7 @@ import { LayoutDashboard, User, Video, Award, BarChart2, Settings, LogOut, Messa
 import { useContext, useState, useEffect } from 'react';
 import AuthContext from '../context/AuthContext';
 import axios from 'axios';
+import Logo from './Logo';
 
 const Sidebar = () => {
     const location = useLocation();
@@ -46,10 +47,8 @@ const Sidebar = () => {
 
     return (
         <div className="h-screen w-64 bg-gray-900 border-r border-white/10 fixed left-0 top-0 flex flex-col pt-20">
-            <div className="px-6 mb-8">
-                <h2 className="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-green-400">
-                    SCOUT ARENA
-                </h2>
+            <div className="px-6 mb-8 flex justify-center">
+                <Logo className="w-40 h-auto" showText={true} />
             </div>
 
             <nav className="flex-1 px-4 space-y-1 overflow-y-auto">

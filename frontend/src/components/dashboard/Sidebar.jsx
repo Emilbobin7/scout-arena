@@ -1,5 +1,6 @@
 import { Home, User, Video, TrendingUp, Award, Settings, LogOut } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import Logo from '../Logo';
 
 const Sidebar = ({ user, logout }) => {
     const location = useLocation();
@@ -16,8 +17,8 @@ const Sidebar = ({ user, logout }) => {
     return (
         <div className="hidden md:flex flex-col w-64 bg-slate-900 h-screen fixed left-0 top-0 border-r border-white/10">
             <div className="flex items-center justify-center h-20 border-b border-white/10">
-                <Link to="/" className="text-2xl font-bold tracking-wider text-white">
-                    SCOUT ARENA
+                <Link to="/">
+                    <Logo className="h-10 w-auto" showText={true} />
                 </Link>
             </div>
 
@@ -40,8 +41,8 @@ const Sidebar = ({ user, logout }) => {
                                 key={item.name}
                                 to={item.path}
                                 className={`flex items-center px-4 py-3 text-sm font-medium rounded-lg transition-colors ${isActive
-                                        ? 'bg-blue-600 text-white'
-                                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                                    ? 'bg-blue-600 text-white'
+                                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                                     }`}
                             >
                                 <item.icon className="mr-3 h-5 w-5" />

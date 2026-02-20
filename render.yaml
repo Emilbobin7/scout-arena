@@ -1,65 +1,28 @@
 services:
-
-  # 1. AI Service
-  - type: web
-    name: scout-arena-ai
-    env: python
-    rootDir: ai-service
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
-
-
-
-  # 2. Backend
+  # Backend Service
   - type: web
     name: scout-arena-backend
     env: node
-    rootDir: server
-    buildCommand: npm install
-    startCommand: node server.js
-
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && npm start
     envVars:
-
       - key: MONGO_URI
         sync: false
-
       - key: JWT_SECRET
-        generateValue: true
-
-      - key: AI_SERVICE_URL
-        value: https://scout-arena-ai.onrender.com
-
-      - key: CLIENT_URL
-        value: https://scout-arena-frontend.onrender.com
-
-
-
-
-  # 3. Frontend
-  - type: web
-    name: scout-arena-frontend
-    env: static
-    rootDir: frontend
-
-    buildCommand: npm install && npm run build
-
-    staticPublishPath: dist
-
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-
-
-    envVars:
-
+        sync: false
       - key: NODE_VERSION
         value: 20.11.0
 
-
+  # Frontend Service
+  - type: static
+    name: scout-arena-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
       - key: VITE_API_URL
-        value: https://scout-arena-backend.onrender.com/api
-
-
-      - key: VITE_SOCKET_URL
-        value: https://scout-arena-backend.onrender.com
+        fromService:
+          type: web
+          name: scout-arena-backend
+          property: url

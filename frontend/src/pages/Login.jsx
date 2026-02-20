@@ -43,14 +43,8 @@ const Login = () => {
             {/* Content Container */}
             <div className="relative z-10 w-full max-w-md px-4 animate-fade-in-up">
                 {/* Logo & Header */}
-                <div className="text-center mb-8">
-                    <div className="flex justify-center mb-4">
-                        <Logo className="w-32 h-32" />
-                    </div>
-                    <h1 className="text-4xl font-extrabold text-white tracking-tight mb-2">
-                        SCOUT ARENA
-                    </h1>
-                    <p className="text-blue-200 font-medium">Where Athletes Become Legends</p>
+                <div className="text-center mb-8 flex flex-col items-center">
+                    <Logo className="w-64 h-auto" showText={true} />
                 </div>
 
                 {/* Login Card */}

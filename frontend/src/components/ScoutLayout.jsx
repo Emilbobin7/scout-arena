@@ -3,6 +3,7 @@ import { LayoutDashboard, Users, Search, LogOut, MessageSquare, Bell } from 'luc
 import { useState, useContext } from 'react';
 import AuthContext from '../context/AuthContext';
 import NotificationBell from './NotificationBell';
+import Logo from './Logo';
 
 const ScoutLayout = () => {
     const location = useLocation();
@@ -27,11 +28,8 @@ const ScoutLayout = () => {
         <div className="flex min-h-screen bg-slate-900">
             {/* Sidebar */}
             <div className="w-64 bg-slate-900 border-r border-white/10 fixed h-full flex flex-col hidden md:flex">
-                <div className="p-6 border-b border-white/10">
-                    <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
-                        SCOUT ARENA
-                    </h1>
-                    <p className="text-xs text-gray-500 tracking-widest mt-1">SCOUT PORTAL</p>
+                <div className="p-6 border-b border-white/10 flex justify-center">
+                    <Logo className="w-40 h-auto" showText={true} />
                 </div>
 
                 <nav className="flex-1 p-4 space-y-1">

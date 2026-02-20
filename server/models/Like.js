@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const likeSchema = mongoose.Schema({
+const likeSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -15,4 +15,7 @@ const likeSchema = mongoose.Schema({
     timestamps: true
 });
 
-module.exports = mongoose.models.Like || mongoose.model('Like', likeSchema);
+// Prevent duplicate likes
+likeSchema.index({ userId: 1, videoId: 1 }, { unique: true });
+
+module.exports = mongoose.model('Like', likeSchema);

@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
     const register = async (userData) => {
         try {
             // Step 1: Register the account
-            await axios.post(`${API_URL}/api/auth/signup`, userData);
+            await axios.post(`${API_URL}/api/auth/register`, userData);
 
             // Step 2: Auto-login to get a token
             const { data } = await axios.post(`${API_URL}/api/auth/login`, {

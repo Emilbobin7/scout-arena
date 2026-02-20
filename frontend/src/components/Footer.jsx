@@ -2,6 +2,7 @@ import { Facebook, Twitter, Instagram, Linkedin, Mail, MapPin, Phone } from 'luc
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
 
+
 const Footer = () => {
     return (
         <footer className="bg-slate-950 border-t border-white/10 pt-20 pb-10">

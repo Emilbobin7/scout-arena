@@ -28,8 +28,8 @@ const Navbar = () => {
                 <div className="flex items-center justify-between h-20">
                     {/* Logo */}
                     {/* Logo */}
-                    <Link to="/" className="flex-shrink-0 flex items-center gap-2">
-                        <Logo className="w-16 h-16" />
+                    <Link to="/" className="flex-shrink-0">
+                        <Logo className="h-10 w-auto" showText={true} />
                     </Link>
 
                     {/* Desktop Menu */}

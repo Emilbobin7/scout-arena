@@ -31,6 +31,42 @@ const registerUser = asyncHandler(async (req, res) => {
     });
 
     if (user) {
+        // 3. Create initial Athlete Profile if role is athlete
+        try {
+            if (user.role === 'athlete') {
+                const AthleteProfile = require('../models/AthleteProfile');
+                await AthleteProfile.create({
+                    userId: user._id,
+                    sport: sport || 'Unknown',
+                    position: position || 'Unknown',
+                    age: 0, // Defaults
+                    height: 'N/A',
+                    weight: 'N/A',
+                    location: 'Unknown',
+                    bio: 'New Athlete',
+                    profilePhoto: 'https://via.placeholder.com/150'
+                });
+            } else if (user.role === 'scout') {
+                const ScoutProfile = require('../models/ScoutProfile');
+                await ScoutProfile.create({
+                    userId: user._id,
+                    fullName: user.name,
+                    organization: 'Independent',
+                    designation: 'Scout',
+                    experience: 0,
+                    specializationSport: 'All',
+                    location: 'Unknown',
+                    bio: 'New Scout',
+                    contactEmail: user.email,
+                    contactPhone: '',
+                    profilePhoto: 'https://via.placeholder.com/150'
+                });
+            }
+        } catch (error) {
+            console.error("Profile creation failed:", error);
+            // Optionally delete the user if profile creation fails? For now, just log it.
+        }
+
         res.status(201).json({
             _id: user.id,
             name: user.name,
@@ -38,37 +74,6 @@ const registerUser = asyncHandler(async (req, res) => {
             role: user.role,
             token: generateToken(user._id)
         });
-
-        // 3. Create initial Athlete Profile if role is athlete
-        if (user.role === 'athlete') {
-            const AthleteProfile = require('../models/AthleteProfile');
-            await AthleteProfile.create({
-                userId: user._id,
-                sport: sport || 'Unknown',
-                position: position || 'Unknown',
-                age: 0, // Defaults
-                height: 'N/A',
-                weight: 'N/A',
-                location: 'Unknown',
-                bio: 'New Athlete',
-                profilePhoto: 'https://via.placeholder.com/150'
-            });
-        } else if (user.role === 'scout') {
-            const ScoutProfile = require('../models/ScoutProfile');
-            await ScoutProfile.create({
-                userId: user._id,
-                fullName: user.name,
-                organization: 'Independent',
-                designation: 'Scout',
-                experience: 0,
-                specializationSport: 'All',
-                location: 'Unknown',
-                bio: 'New Scout',
-                contactEmail: user.email,
-                contactPhone: '',
-                profilePhoto: 'https://via.placeholder.com/150'
-            });
-        }
 
     } else {
         res.status(400);

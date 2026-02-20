@@ -7,7 +7,7 @@ const activitySchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ["video", "follow", "achievement", "join"],
+        enum: ["video", "follow", "achievement", "join", "like"],
         default: "join"
     },
     text: String,

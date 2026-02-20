@@ -1,56 +1,35 @@
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { createActivity } = require("./activityController");
+import User from "../models/User.js";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
-exports.register = async (req, res) => {
-    try {
-        const { name, email, password, role } = req.body;
-
-        const exist = await User.findOne({ email });
-        if (exist) return res.status(400).json({ message: "User exists" });
-
-        const hashed = await bcrypt.hash(password, 10);
-
-        const user = await User.create({
-            name,
-            email,
-            password: hashed,
-            role
-        });
-
-        // Log activity
-        if (role === "athlete") {
-            createActivity({
-                userId: user._id,
-                type: "join",
-                text: "joined the platform"
-            });
-        }
-
-        res.json(user);
-    } catch {
-        res.status(500).json({ message: "Registration failed" });
-    }
+export const register = async (req, res) => {
+    const { name, email, password } = req.body;
+    const hashed = await bcrypt.hash(password, 10);
+    const user = await User.create({
+        name,
+        email,
+        password: hashed
+    });
+    res.json(user);
 };
 
-exports.login = async (req, res) => {
-    try {
-        const { email, password } = req.body;
+export const login = async (req, res) => {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
 
-        const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: "User not found" });
+    if (!user) return res.json("User not found");
 
-        const match = await bcrypt.compare(password, user.password);
-        if (!match) return res.status(400).json({ message: "Invalid password" });
+    const match = await bcrypt.compare(password, user.password);
 
-        const token = jwt.sign(
-            { id: user._id },
-            process.env.JWT_SECRET
-        );
+    if (!match) return res.json("Wrong password");
 
-        res.json({ token, user });
-    } catch {
-        res.status(500).json({ message: "Login failed" });
-    }
+    const token = jwt.sign(
+        { id: user._id },
+        process.env.JWT_SECRET
+    );
+
+    res.json({
+        token,
+        user
+    });
 };
