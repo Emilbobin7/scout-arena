@@ -6,6 +6,7 @@ import {
     Target, Timer, ChevronRight, Camera, Star
 } from 'lucide-react';
 import axios from 'axios';
+import { API_URL } from '../config';
 import FollowButton from '../components/FollowButton';
 import FollowersCount from '../components/FollowersCount';
 
@@ -54,8 +55,8 @@ const TabBtn = ({ active, onClick, children }) => (
     <button
         onClick={onClick}
         className={`px-5 py-3 text-sm font-semibold rounded-xl transition-all ${active
-                ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
-                : 'text-gray-400 hover:text-white hover:bg-white/5'
+            ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30'
+            : 'text-gray-400 hover:text-white hover:bg-white/5'
             }`}
     >
         {children}
@@ -118,9 +119,9 @@ const PublicProfile = () => {
                 const userInfo = JSON.parse(localStorage.getItem('userInfo'));
                 const config = { headers: { Authorization: `Bearer ${userInfo?.token}` } };
                 const [profileRes, videosRes, achievementsRes] = await Promise.all([
-                    axios.get(`/api/athlete/profile/${id}`, config),
-                    axios.get(`/api/videos/${id}`, config),
-                    axios.get(`/api/athlete/achievements/${id}`, config),
+                    axios.get(`${API_URL}/api/profile/${id}`, config),
+                    axios.get(`${API_URL}/api/videos/${id}`, config),
+                    axios.get(`${API_URL}/api/achievements/${id}`, config),
                 ]);
                 setProfile({
                     ...profileRes.data,

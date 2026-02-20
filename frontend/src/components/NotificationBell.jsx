@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Bell, Check, CheckCheck, UserPlus, MessageSquare, Trophy, Heart, X } from 'lucide-react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../config';
 
 const POLL_INTERVAL = 30000; // 30s polling
 
@@ -41,7 +42,7 @@ export default function NotificationBell() {
 
     const fetchNotifications = useCallback(async () => {
         try {
-            const { data } = await axios.get('/api/notifications', getConfig());
+            const { data } = await axios.get(`${API_URL}/api/notifications`, getConfig());
             setNotifications(data);
         } catch { /* silent */ }
     }, []);
@@ -66,7 +67,7 @@ export default function NotificationBell() {
 
     const markRead = async (id) => {
         try {
-            await axios.put(`/api/notifications/${id}/read`, {}, getConfig());
+            await axios.put(`${API_URL}/api/notifications/${id}/read`, {}, getConfig());
             setNotifications(prev => prev.map(n => n._id === id ? { ...n, read: true } : n));
         } catch { /* silent */ }
     };
@@ -74,7 +75,7 @@ export default function NotificationBell() {
     const markAllRead = async () => {
         try {
             setLoading(true);
-            await axios.put('/api/notifications/read-all', {}, getConfig());
+            await axios.put(`${API_URL}/api/notifications/read-all`, {}, getConfig());
             setNotifications(prev => prev.map(n => ({ ...n, read: true })));
         } catch { /* silent */ }
         finally { setLoading(false); }
@@ -102,8 +103,8 @@ export default function NotificationBell() {
             <button
                 onClick={() => setOpen(prev => !prev)}
                 className={`relative p-2 rounded-xl transition-all ${open
-                        ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30'
-                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
                     }`}
                 aria-label="Notifications"
             >
@@ -164,8 +165,8 @@ export default function NotificationBell() {
                                         key={n._id}
                                         onClick={() => handleNotificationClick(n)}
                                         className={`flex items-start gap-3 px-4 py-3 cursor-pointer border-b border-white/5 last:border-0 transition-all ${n.read
-                                                ? 'hover:bg-white/3 opacity-60'
-                                                : 'bg-blue-500/5 hover:bg-blue-500/10'
+                                            ? 'hover:bg-white/3 opacity-60'
+                                            : 'bg-blue-500/5 hover:bg-blue-500/10'
                                             }`}
                                     >
                                         {/* Sender avatar or icon */}

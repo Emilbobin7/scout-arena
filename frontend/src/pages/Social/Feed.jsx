@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { MessageSquare } from 'lucide-react';
 import axios from 'axios';
+import { API_URL } from '../../config';
 
 const Feed = () => {
     const [activities, setActivities] = useState([]);
@@ -10,7 +11,7 @@ const Feed = () => {
         const fetchFeed = async () => {
             try {
                 const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
-                const { data } = await axios.get('/api/social/activity', {
+                const { data } = await axios.get(`${API_URL}/api/activity`, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setActivities(data);

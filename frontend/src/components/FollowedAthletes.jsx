@@ -3,6 +3,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { Users, MessageSquare } from "lucide-react";
 import FollowButton from "./FollowButton";
+import { API_URL } from "../config";
 
 export default function FollowedAthletes() {
     const [following, setFollowing] = useState([]);
@@ -13,7 +14,7 @@ export default function FollowedAthletes() {
 
     useEffect(() => {
         axios
-            .get("/api/follow/following", config)
+            .get(`${API_URL}/api/follow/following`, config)
             .then((res) => setFollowing(res.data))
             .catch(() => { })
             .finally(() => setLoading(false));

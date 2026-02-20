@@ -2,6 +2,7 @@ import { useState, useContext } from 'react';
 import axios from 'axios';
 import AuthContext from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../../config';
 
 const Settings = () => {
     const { logout } = useContext(AuthContext);
@@ -27,7 +28,7 @@ const Settings = () => {
         try {
             const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            await axios.put('/api/settings/password', { password: passwordData.password }, config);
+            await axios.put(`${API_URL}/api/settings/password`, { password: passwordData.password }, config);
             setMessage('Password updated successfully');
             setPasswordData({ password: '', confirmPassword: '' });
         } catch (error) {
@@ -44,7 +45,7 @@ const Settings = () => {
         try {
             const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            await axios.delete('/api/settings/account', config);
+            await axios.delete(`${API_URL}/api/settings/account`, config);
             logout();
             navigate('/signup');
         } catch (error) {

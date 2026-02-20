@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Camera, Save, User } from 'lucide-react';
+import { API_URL } from '../../config';
 
 const ScoutProfile = () => {
     const [profile, setProfile] = useState(null);
@@ -17,7 +18,7 @@ const ScoutProfile = () => {
         try {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const config = { headers: { Authorization: `Bearer ${userInfo.token}` } };
-            const { data } = await axios.get('/api/scout/profile', config);
+            const { data } = await axios.get(`${API_URL}/api/scout/profile`, config);
             setProfile(data);
             setFormData(data);
             setLoading(false);
@@ -58,7 +59,7 @@ const ScoutProfile = () => {
                 const fd = new FormData();
                 editableFields.forEach(k => fd.append(k, formData[k] ?? ''));
                 fd.append('profilePhoto', formData.profilePhoto);
-                const res = await axios.put('/api/scout/profile', fd, {
+                const res = await axios.put(`${API_URL}/api/scout/profile`, fd, {
                     headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
                 });
                 data = res.data;
@@ -66,7 +67,7 @@ const ScoutProfile = () => {
                 // Use clean JSON — simpler and more reliable
                 const payload = {};
                 editableFields.forEach(k => { payload[k] = formData[k] ?? ''; });
-                const res = await axios.put('/api/scout/profile', payload, {
+                const res = await axios.put(`${API_URL}/api/scout/profile`, payload, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 data = res.data;

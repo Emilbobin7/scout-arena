@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../config';
 import {
     Upload, Trash2, Play, Zap, Target, Activity, Brain,
     Star, TrendingUp, X, ChevronRight, Video as VideoIcon
@@ -228,7 +229,7 @@ const MyVideos = () => {
 
     const fetchVideos = useCallback(async () => {
         try {
-            const { data } = await axios.get('/api/videos', getConfig());
+            const { data } = await axios.get(`${API_URL}/api/videos`, getConfig());
             setVideos(data);
         } catch (e) {
             console.error('fetchVideos error', e);
@@ -261,7 +262,7 @@ const MyVideos = () => {
             // After upload bytes sent, show analyzing state
             setTimeout(() => { setAnalyzing(true); }, 500);
 
-            const { data } = await axios.post('/api/videos', formData, config);
+            const { data } = await axios.post(`${API_URL}/api/videos`, formData, config);
             setVideos(prev => [data, ...prev]);
             setFile(null);
             setTitle('');
@@ -277,7 +278,7 @@ const MyVideos = () => {
     const handleDelete = async (id) => {
         if (!window.confirm('Delete this video?')) return;
         try {
-            await axios.delete(`/api/videos/${id}`, getConfig());
+            await axios.delete(`${API_URL}/api/videos/${id}`, getConfig());
             setVideos(prev => prev.filter(v => v._id !== id));
         } catch (e) {
             console.error('Delete error', e);
@@ -320,10 +321,10 @@ const MyVideos = () => {
                         onDrop={handleDrop}
                         onClick={() => document.getElementById('video-file-input').click()}
                         className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${dragOver
-                                ? 'border-blue-500 bg-blue-500/10'
-                                : file
-                                    ? 'border-green-500/50 bg-green-500/5'
-                                    : 'border-white/10 hover:border-white/25 hover:bg-white/3'
+                            ? 'border-blue-500 bg-blue-500/10'
+                            : file
+                                ? 'border-green-500/50 bg-green-500/5'
+                                : 'border-white/10 hover:border-white/25 hover:bg-white/3'
                             }`}
                     >
                         <input

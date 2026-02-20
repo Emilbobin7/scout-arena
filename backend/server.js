@@ -24,6 +24,9 @@ app.use('/api/achievements', require('./routes/achievementRoutes'));
 app.use('/api/athletes', require('./routes/scoutRoutes')); // Keeping for legacy search
 app.use('/api/scout', require('./routes/scoutRoutes')); // New scout profile & stats
 app.use('/api', require('./routes/socialRoutes')); // Social routes like /api/follow, /api/like
+app.use('/api/analytics', require('./routes/analyticsRoutes'));
+app.use('/api/settings', require('./routes/settingsRoutes'));
+app.use('/api/messages', require('./routes/messageRoutes'));
 
 const path = require('path');
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

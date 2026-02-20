@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Users, Eye, TrendingUp, Activity, Video, Award, UserPlus, Zap } from 'lucide-react';
+import { API_URL } from '../../config';
 import { Link } from 'react-router-dom';
 import FollowedAthletes from '../../components/FollowedAthletes';
 
@@ -31,8 +32,8 @@ const ScoutDashboard = () => {
         const fetchAll = async () => {
             try {
                 const [statsRes, activityRes] = await Promise.all([
-                    axios.get('/api/scout/stats', config),
-                    axios.get('/api/activity', config).catch(() => ({ data: [] })),
+                    axios.get(`${API_URL}/api/scout/stats`, config),
+                    axios.get(`${API_URL}/api/activity`, config).catch(() => ({ data: [] })),
                 ]);
                 setStats(statsRes.data);
                 setActivity(activityRes.data.slice(0, 6));

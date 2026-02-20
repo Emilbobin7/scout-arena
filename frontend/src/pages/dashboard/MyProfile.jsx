@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../config';
 
 const MyProfile = () => {
     const [profile, setProfile] = useState(null);
@@ -15,7 +16,7 @@ const MyProfile = () => {
         try {
             const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            const { data } = await axios.get('/api/athlete/profile', config);
+            const { data } = await axios.get(`${API_URL}/api/profile`, config);
             setProfile(data);
             setFormData(data);
         } catch (error) {
@@ -47,14 +48,14 @@ const MyProfile = () => {
                 const fd = new FormData();
                 editableFields.forEach(k => fd.append(k, formData[k] ?? ''));
                 fd.append('profilePhoto', formData.profilePhoto);
-                const res = await axios.put('/api/athlete/profile', fd, {
+                const res = await axios.put(`${API_URL}/api/profile`, fd, {
                     headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'multipart/form-data' }
                 });
                 data = res.data;
             } else {
                 const payload = {};
                 editableFields.forEach(k => { payload[k] = formData[k] ?? ''; });
-                const res = await axios.put('/api/athlete/profile', payload, {
+                const res = await axios.put(`${API_URL}/api/profile`, payload, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 data = res.data;

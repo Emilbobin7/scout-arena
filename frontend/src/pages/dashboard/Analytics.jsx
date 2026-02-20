@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_URL } from '../../config';
 import {
     BarChart,
     Bar,
@@ -28,7 +29,7 @@ const Analytics = () => {
         try {
             const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            const { data } = await axios.get('/api/analytics', config);
+            const { data } = await axios.get(`${API_URL}/api/analytics`, config);
             setAnalytics(data);
             setLoading(false);
         } catch (error) {

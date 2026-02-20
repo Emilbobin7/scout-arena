@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Award, Trash2, Plus } from 'lucide-react';
+import { API_URL } from '../../config';
 
 const Achievements = () => {
     const [achievements, setAchievements] = useState([]);
@@ -24,7 +25,7 @@ const Achievements = () => {
             // Let's just use `getDashboardData` to get the list for now to save a route or just filter from there.
             // Better yet, let's just fetch dashboard data and extract achievements.
             // Fetch achievements directly
-            const { data } = await axios.get('/api/achievements', config);
+            const { data } = await axios.get(`${API_URL}/api/achievements`, config);
             setAchievements(data);
             setLoading(false);
         } catch (error) {
@@ -38,7 +39,7 @@ const Achievements = () => {
         try {
             const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            const { data } = await axios.post('/api/achievements', formData, config);
+            const { data } = await axios.post(`${API_URL}/api/achievements`, formData, config);
             setAchievements([data, ...achievements]);
             setShowForm(false);
             setFormData({ title: '', year: '', description: '' });
@@ -52,7 +53,7 @@ const Achievements = () => {
         try {
             const token = JSON.parse(localStorage.getItem('userInfo'))?.token;
             const config = { headers: { Authorization: `Bearer ${token}` } };
-            await axios.delete(`/api/achievements/${id}`, config);
+            await axios.delete(`${API_URL}/api/achievements/${id}`, config);
             setAchievements(achievements.filter(a => a._id !== id));
         } catch (error) {
             console.error("Failed to delete achievement:", error);

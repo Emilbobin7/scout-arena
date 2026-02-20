@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Activity, Video, Award } from 'lucide-react';
+import { API_URL } from '../../config';
 import ActivityFeed from '../../components/dashboard/ActivityFeed';
 
 const Overview = () => {
@@ -17,9 +18,9 @@ const Overview = () => {
                     },
                 };
                 const [profileRes, videosRes, achievementsRes] = await Promise.all([
-                    axios.get('/api/athlete/profile', config),
-                    axios.get('/api/videos', config),
-                    axios.get('/api/athlete/achievements', config)
+                    axios.get(`${API_URL}/api/profile`, config),
+                    axios.get(`${API_URL}/api/videos`, config),
+                    axios.get(`${API_URL}/api/achievements`, config)
                 ]);
 
                 setData({

@@ -3,7 +3,7 @@ import { io } from "socket.io-client";
 import axios from "axios";
 import { Send, Search, MessageSquare, Circle } from "lucide-react";
 import { useSearchParams } from "react-router-dom";
-import { SOCKET_URL } from "../../config";
+import { SOCKET_URL, API_URL } from "../../config";
 
 const socket = io(SOCKET_URL, { autoConnect: false });
 
@@ -65,7 +65,7 @@ export default function Messages() {
     useEffect(() => {
         const fetchConversations = async () => {
             try {
-                const { data } = await axios.get("/api/messages", getConfig());
+                const { data } = await axios.get(`${API_URL}/api/messages`, getConfig());
                 setConversations(data);
             } catch (e) {
                 console.error(e);
@@ -90,7 +90,7 @@ export default function Messages() {
         if (!selectedUser) return;
         const fetchMessages = async () => {
             try {
-                const { data } = await axios.get(`/api/messages/${selectedUser._id}`, getConfig());
+                const { data } = await axios.get(`${API_URL}/api/messages/${selectedUser._id}`, getConfig());
                 setMessages(data);
                 // Clear unread badge
                 setUnreadMap((prev) => ({ ...prev, [selectedUser._id]: 0 }));
@@ -124,7 +124,7 @@ export default function Messages() {
 
         // Persist to DB
         try {
-            await axios.post("/api/messages", { receiverId: selectedUser._id, text: msgData.text }, getConfig());
+            await axios.post(`${API_URL}/api/messages`, { receiverId: selectedUser._id, text: msgData.text }, getConfig());
         } catch (e) {
             console.error("Failed to save message:", e);
         }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Bell, CheckCheck } from 'lucide-react';
 import axios from 'axios';
+import { API_URL } from '../../config';
 
 const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
@@ -15,7 +16,7 @@ const Notifications = () => {
 
     const fetchNotifications = async () => {
         try {
-            const { data } = await axios.get('/api/notifications', getConfig());
+            const { data } = await axios.get(`${API_URL}/api/notifications`, getConfig());
             setNotifications(data);
         } catch (error) {
             console.error('Notifications error:', error);
@@ -26,7 +27,7 @@ const Notifications = () => {
 
     const markAllRead = async () => {
         try {
-            await axios.put('/api/notifications/read-all', {}, getConfig());
+            await axios.put(`${API_URL}/api/notifications/read-all`, {}, getConfig());
             setNotifications(prev => prev.map(n => ({ ...n, read: true })));
         } catch (error) {
             console.error('Mark all read error:', error);
@@ -35,7 +36,7 @@ const Notifications = () => {
 
     const markRead = async (id) => {
         try {
-            await axios.put(`/api/notifications/${id}/read`, {}, getConfig());
+            await axios.put(`${API_URL}/api/notifications/${id}/read`, {}, getConfig());
             setNotifications(prev => prev.map(n => n._id === id ? { ...n, read: true } : n));
         } catch (error) {
             console.error('Mark read error:', error);

@@ -4,6 +4,7 @@ import {
     MessageSquare, UserCheck, ArrowUpDown, Zap, Target, Timer, Activity
 } from 'lucide-react';
 import axios from 'axios';
+import { API_URL } from '../../config';
 import { Link, useNavigate } from 'react-router-dom';
 import FollowButton from '../../components/FollowButton';
 
@@ -134,8 +135,8 @@ const AthleteCard = ({ athlete }) => {
                                 <div className="h-1 bg-slate-700 rounded-full overflow-hidden">
                                     <div
                                         className={`h-full rounded-full transition-all duration-700 ${skill === 'speed' ? 'bg-yellow-400' :
-                                                skill === 'agility' ? 'bg-green-400' :
-                                                    skill === 'accuracy' ? 'bg-blue-400' : 'bg-purple-400'
+                                            skill === 'agility' ? 'bg-green-400' :
+                                                skill === 'accuracy' ? 'bg-blue-400' : 'bg-purple-400'
                                             }`}
                                         style={{ width: `${val}%` }}
                                     />
@@ -213,7 +214,7 @@ const ExploreAthletes = () => {
                 Object.entries(activeFilters)
                     .filter(([, v]) => v !== '' && v !== 'All Sports')
             );
-            const { data } = await axios.get('/api/scout/search', { ...getConfig(), params });
+            const { data } = await axios.get(`${API_URL}/api/scout/search`, { ...getConfig(), params });
             setAthletes(data);
         } catch (error) {
             console.error('Error fetching athletes:', error);
