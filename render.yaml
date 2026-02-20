@@ -9,6 +9,7 @@ services:
     startCommand: gunicorn app:app
 
 
+
   # 2. Backend
   - type: web
     name: scout-arena-backend
@@ -26,24 +27,18 @@ services:
         generateValue: true
 
       - key: AI_SERVICE_URL
-        fromService:
-          name: scout-arena-ai
-          type: web
-          property: url
+        value: https://scout-arena-ai.onrender.com
 
       - key: CLIENT_URL
-        fromService:
-          name: scout-arena-frontend
-          type: web
-          property: url
+        value: https://scout-arena-frontend.onrender.com
 
 
 
-  # 3. Frontend (STATIC SITE FIXED)
+
+  # 3. Frontend
   - type: web
     name: scout-arena-frontend
     env: static
-
     rootDir: frontend
 
     buildCommand: npm install && npm run build
@@ -58,15 +53,8 @@ services:
 
 
       - key: VITE_API_URL
-        fromService:
-          name: scout-arena-backend
-          type: web
-          property: url
-        suffix: /api
+        value: https://scout-arena-backend.onrender.com/api
 
 
       - key: VITE_SOCKET_URL
-        fromService:
-          name: scout-arena-backend
-          type: web
-          property: url
+        value: https://scout-arena-backend.onrender.com
